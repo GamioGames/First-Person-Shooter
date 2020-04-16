@@ -1,8 +1,20 @@
 fileFormatVersion: 2
-guid: e002e447e39924a5a88967737876b01e
+guid: ec2c5957f6457409686a2d8da0df556b
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -2673629156632309919
+    second: Pistol|MagazineChange
+  - first:
+      74: 4842100275923014631
+    second: Pistol|Reload
+  - first:
+      74: -5047201764034367154
+    second: Magazine|MagazineChange
+  - first:
+      74: -2472303846435452861
+    second: Magazine|Reload
   externalObjects: {}
   materials:
     materialImportMode: 1
