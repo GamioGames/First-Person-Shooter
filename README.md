@@ -1,8 +1,8 @@
 # Curso FPS (First Person Shooter)
-Hola, este reprocitorio fue creado a partir de el siguiente curso en Youtube:
-[Curso de Youtube](https://www.youtube.com/playlist?list=PLvS4Ct-H_3MuwjEm8VZ5W-zvrH8xiNaWy)
+Hola, este reprositorio fue creado a partir de el siguiente curso en Youtube:
+[FPS en Unity 3D](https://www.youtube.com/playlist?list=PLvS4Ct-H_3MuwjEm8VZ5W-zvrH8xiNaWy)
 
-# Prueba el juego en unity
+# Prueba el juego en Unity
 El juego fue desarrollado en `Unity v.2019.3`. Es recomendable tener la misma versión para que todo funcione justo como en los videos.
 
 Para probar el juego puedes clonar el repositorio o descargarlo. 
