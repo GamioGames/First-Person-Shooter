@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8061094748713395480}
   - component: {fileID: 6733338540999941836}
+  - component: {fileID: 7091809032297418111}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
@@ -42,6 +43,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b82f86e0146f4263b26d136b7ef1fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  flashEffectPosition: {fileID: 572398119166509834}
+  flashEffect: {fileID: 2461809850022345416, guid: dd38dae8317c148f1a77df54d977ed78,
+    type: 3}
+--- !u!114 &7091809032297418111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835586930098939615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6723e17f9bc9d4781b576d77875d6e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1310900453792031547
