@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b82f86e0146f4263b26d136b7ef1fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  flashEffectPosition: {fileID: 572398119166509834}
-  flashEffect: {fileID: 2461809850022345416, guid: dd38dae8317c148f1a77df54d977ed78,
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  bulletHolePrefab: {fileID: 1744496844791253089, guid: 01de8e052de0848c6a40db30b2d7b2cd,
     type: 3}
+  fireRange: 200
 --- !u!114 &7091809032297418111
 MonoBehaviour:
   m_ObjectHideFlags: 0
