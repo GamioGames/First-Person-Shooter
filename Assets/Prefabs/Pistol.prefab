@@ -45,12 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b82f86e0146f4263b26d136b7ef1fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponMuzzle: {fileID: 572398119166509834}
   hittableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   bulletHolePrefab: {fileID: 1744496844791253089, guid: 01de8e052de0848c6a40db30b2d7b2cd,
     type: 3}
   fireRange: 200
+  recoilForce: 4
+  flashEffect: {fileID: 213868001771980536, guid: 2a3a3e7e2e01940e78565df8cd64c513,
+    type: 3}
 --- !u!114 &7091809032297418111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310900453792031547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0199, z: 0.2385}
+  m_LocalPosition: {x: 0, y: 0.0199, z: 0.2386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1981055765440334750}
