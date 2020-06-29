@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponMuzzle: {fileID: 572398119166509834}
+  weaponName: M34
+  icon: {fileID: 21300000, guid: 14424d918e4e24d5895f96505bff0aa6, type: 3}
   hittableLayers:
     serializedVersion: 2
     m_Bits: 1

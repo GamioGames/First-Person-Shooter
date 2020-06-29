@@ -7,6 +7,10 @@ public class WeaponController : MonoBehaviour
     [Header("References")]
     public Transform weaponMuzzle;
 
+    [Header("Info")]
+    public string weaponName;
+    public Sprite icon;
+
     [Header("General")]
     public LayerMask hittableLayers;
     public GameObject bulletHolePrefab;
@@ -27,8 +31,6 @@ public class WeaponController : MonoBehaviour
 
     public GameObject owner { get; set; }
 
-    private Transform cameraPlayerTransform;
-
     private void Awake()
     {
         currentAmmo = maxAmmo;
@@ -36,7 +38,6 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        cameraPlayerTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     private void Update()
@@ -76,18 +77,8 @@ public class WeaponController : MonoBehaviour
 
         AddRecoil();
 
-        //Raycast detects colition with other objects
-        /*
-        RaycastHit hit;
-        if (Physics.Raycast(cameraPlayerTransform.position, cameraPlayerTransform.forward, out hit, fireRange, hittableLayers))
-        {
-            GameObject bulletHoleClone = Instantiate(bulletHolePrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-            Destroy(bulletHoleClone, 4f);
-        }
-        */
-
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(cameraPlayerTransform.position, cameraPlayerTransform.forward, fireRange, hittableLayers);
+        hits = Physics.RaycastAll(owner.GetComponent<PlayerController>().playerCamera.transform.position, owner.GetComponent<PlayerController>().playerCamera.transform.forward, fireRange, hittableLayers);
         foreach (RaycastHit hit in hits)
         {
             Debug.Log(hit.collider.gameObject.name);
