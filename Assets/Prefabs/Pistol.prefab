@@ -48,7 +48,7 @@ MonoBehaviour:
   weaponMuzzle: {fileID: 572398119166509834}
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   bulletHolePrefab: {fileID: 1744496844791253089, guid: 01de8e052de0848c6a40db30b2d7b2cd,
     type: 3}
   fireRange: 200

@@ -6,6 +6,7 @@ public class PlayerWeaponController : MonoBehaviour
 {
     public List<WeaponController> startingWeapons = new List<WeaponController>();
 
+    [Header ("References")]
     public Transform weaponParentSocket;
     public Transform defaultWeaponPosition;
     public Transform aimingPosition;
@@ -53,6 +54,7 @@ public class PlayerWeaponController : MonoBehaviour
             if (weaponSlots[i] == null)
             {
                 WeaponController weaponClone = Instantiate(p_weaponPrefab, weaponParentSocket);
+                weaponClone.owner = gameObject;
                 weaponClone.gameObject.SetActive(false);
 
                 weaponSlots[i] = weaponClone;

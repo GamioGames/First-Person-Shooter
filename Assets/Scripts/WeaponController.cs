@@ -19,13 +19,13 @@ public class WeaponController : MonoBehaviour
 
     [Header("Reload Parameters")]
     public float reloadTime = 1.5f;
-
     public int currentAmmo { get; private set; }
-
     private float lastTimeShoot = Mathf.NegativeInfinity;
 
     [Header("Sounds & Visuals")]
     public GameObject flashEffect;
+
+    public GameObject owner { get; set; }
 
     private Transform cameraPlayerTransform;
 
@@ -76,11 +76,26 @@ public class WeaponController : MonoBehaviour
 
         AddRecoil();
 
+        //Raycast detects colition with other objects
+        /*
         RaycastHit hit;
         if (Physics.Raycast(cameraPlayerTransform.position, cameraPlayerTransform.forward, out hit, fireRange, hittableLayers))
         {
             GameObject bulletHoleClone = Instantiate(bulletHolePrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
             Destroy(bulletHoleClone, 4f);
+        }
+        */
+
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(cameraPlayerTransform.position, cameraPlayerTransform.forward, fireRange, hittableLayers);
+        foreach (RaycastHit hit in hits)
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            if (hit.collider.gameObject != owner)
+            {
+                GameObject bulletHoleClone = Instantiate(bulletHolePrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                Destroy(bulletHoleClone, 4f);
+            }
         }
 
         lastTimeShoot = Time.time;
@@ -94,9 +109,11 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator Reload()
     {
+        //TODO emepezar animacion de recarga
         Debug.Log("Recargando...");
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
         Debug.Log("Recargada");
+        //TODO terminar la animacion
     }
 }
