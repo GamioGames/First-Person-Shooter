@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : MonoBehaviour
+public class PlayerWeaponManager : MonoBehaviour
 {
     public List<WeaponController> startingWeapons = new List<WeaponController>();
 
@@ -53,6 +53,7 @@ public class PlayerWeaponController : MonoBehaviour
             if (weaponSlots[i] == null)
             {
                 WeaponController weaponClone = Instantiate(p_weaponPrefab, weaponParentSocket);
+                weaponClone.owner = gameObject;
                 weaponClone.gameObject.SetActive(false);
 
                 weaponSlots[i] = weaponClone;
