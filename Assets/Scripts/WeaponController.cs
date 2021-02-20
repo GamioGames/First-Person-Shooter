@@ -34,6 +34,7 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         currentAmmo = maxAmmo;
+        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo,maxAmmo);
     }
 
     private void Start()
@@ -64,6 +65,7 @@ public class WeaponController : MonoBehaviour
             {
                 HandleShoot();
                 currentAmmo -= 1;
+                EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, maxAmmo);
                 return true;
             }
         }
@@ -103,6 +105,7 @@ public class WeaponController : MonoBehaviour
         Debug.Log("Recargando...");
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
+        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, maxAmmo);
         Debug.Log("Recargada");
     }
 }

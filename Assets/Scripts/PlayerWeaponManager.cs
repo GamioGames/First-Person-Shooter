@@ -40,6 +40,7 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             weaponSlots[p_weaponIndex].gameObject.SetActive(true);
             activeWeaponIndex = p_weaponIndex;
+            EventManager.current.NewGunEvent.Invoke();
         }
     }
 
