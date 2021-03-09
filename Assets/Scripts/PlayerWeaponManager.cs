@@ -6,13 +6,14 @@ public class PlayerWeaponManager : MonoBehaviour
 {
     public List<WeaponController> startingWeapons = new List<WeaponController>();
 
+    [Header("References")]
     public Transform weaponParentSocket;
     public Transform defaultWeaponPosition;
     public Transform aimingPosition;
 
     public int activeWeaponIndex { get; private set; }
 
-    private WeaponController[] weaponSlots = new WeaponController[5];
+    private WeaponController[] weaponSlots = new WeaponController[2];
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,8 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             AddWeapon(startingWeapon);
         }
+
+        SwitchWeapon();
     }
 
     // Update is called once per frame
@@ -30,18 +33,22 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SwitchWeapon(0);
+            SwitchWeapon();
         }
     }
 
-    private void SwitchWeapon(int p_weaponIndex)
+    private void SwitchWeapon()
     {
-        if (p_weaponIndex != activeWeaponIndex && p_weaponIndex >= 0)
-        {
-            weaponSlots[p_weaponIndex].gameObject.SetActive(true);
-            activeWeaponIndex = p_weaponIndex;
-            EventManager.current.NewGunEvent.Invoke();
-        }
+        int tempIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
+
+        if (weaponSlots[tempIndex] == null)
+            return;
+
+        weaponSlots[tempIndex].gameObject.SetActive(true);
+        activeWeaponIndex = tempIndex;
+
+        EventManager.current.NewGunEvent.Invoke();
+
     }
 
     private void AddWeapon(WeaponController p_weaponPrefab)
@@ -49,7 +56,7 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponParentSocket.position = defaultWeaponPosition.position;
 
         //Añadir arma al jugador pero no mostrarla
-        for (int i = 0; i<weaponSlots.Length; i++)
+        for (int i = 0; i < weaponSlots.Length; i++)
         {
             if (weaponSlots[i] == null)
             {
