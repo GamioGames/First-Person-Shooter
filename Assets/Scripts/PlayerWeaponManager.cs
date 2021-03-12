@@ -33,18 +33,25 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SwitchWeapon();
+            StartCoroutine(SwitchWeapon());
         }
     }
 
-    private void SwitchWeapon()
+    private IEnumerator SwitchWeapon()
     {
         int tempIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
 
         if (weaponSlots[tempIndex] == null)
-            return;
+            yield return null;
 
         foreach(WeaponController weapon in weaponSlots)
+        {
+            if (weapon != null) weapon.Hide();
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (WeaponController weapon in weaponSlots)
         {
             if (weapon != null) weapon.gameObject.SetActive(false);
         }

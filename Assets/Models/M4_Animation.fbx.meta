@@ -1,9 +1,26 @@
 fileFormatVersion: 2
-guid: 95618cf92e670e545b5d01a79372fdb3
+guid: 7bc1f4ff0fd779d41b3a085905978f33
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
-  externalObjects: {}
+  internalIDToNameTable:
+  - first:
+      74: -6557076242086181545
+    second: M4_Armature|Draw
+  - first:
+      74: -2777464036744031734
+    second: M4_Armature|Hide
+  - first:
+      74: 7186297986963392216
+    second: M4_Armature|Idle
+  - first:
+      74: 894446978845051078
+    second: M4_Armature|Reload
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M4
+    second: {fileID: 2100000, guid: 2fe0a709001698040b8a90dec789b408, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -23,7 +40,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -82,9 +99,9 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: M4_Armature
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
