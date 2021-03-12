@@ -44,6 +44,11 @@ public class PlayerWeaponManager : MonoBehaviour
         if (weaponSlots[tempIndex] == null)
             return;
 
+        foreach(WeaponController weapon in weaponSlots)
+        {
+            if (weapon != null) weapon.gameObject.SetActive(false);
+        }
+
         weaponSlots[tempIndex].gameObject.SetActive(true);
         activeWeaponIndex = tempIndex;
 

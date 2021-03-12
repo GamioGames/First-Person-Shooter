@@ -838,6 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingWeapons:
   - {fileID: 6733338540999941836, guid: 9ff2589e7dfa446608daf2c476f71424, type: 3}
+  - {fileID: 6733338540999941836, guid: fab72582cb548464caba8d8571f194c3, type: 3}
   weaponParentSocket: {fileID: 363981165}
   defaultWeaponPosition: {fileID: 1235560345}
   aimingPosition: {fileID: 1196999232}

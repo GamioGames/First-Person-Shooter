@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShotType
+{
+    Manual,
+    Automatic
+}
 public class WeaponController : MonoBehaviour
 {
     [Header("References")]
@@ -12,6 +17,7 @@ public class WeaponController : MonoBehaviour
     public GameObject bulletHolePrefab;
 
     [Header("Shoot Paramaters")]
+    public ShotType shotType;
     public float fireRange = 200;
     public float recoilForce = 4f; //Fuerza de retroceso del arma
     public float fireRate = 0.6f;
@@ -44,10 +50,20 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (shotType == ShotType.Manual)
         {
-            TryShoot();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                TryShoot();
+            }
+        }else if (shotType == ShotType.Automatic)
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                TryShoot();
+            }
         }
+
 
         if (Input.GetKeyDown(KeyCode.R))
         {
