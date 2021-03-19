@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
+public class Bool1Event : UnityEvent<bool> { }
 public class Int2Event : UnityEvent<int, int> { }
+public class String1Sprite1Event : UnityEvent<string, Sprite> { }
 public class EventManager : MonoBehaviour
 {
     #region Signgleton
@@ -17,6 +19,13 @@ public class EventManager : MonoBehaviour
     }
     #endregion
 
+    // Player
+    public Bool1Event PlayerMovementEvent = new Bool1Event();
+    public Bool1Event DamageEnemyEvent = new Bool1Event();
+
+    // Weapons
     public Int2Event UpdateBulletsEvent = new Int2Event();
     public UnityEvent NewGunEvent = new UnityEvent();
+    public String1Sprite1Event PickUpEvent = new String1Sprite1Event();
+    public UnityEvent PickDownEvent = new UnityEvent();
 }

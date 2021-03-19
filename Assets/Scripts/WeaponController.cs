@@ -9,53 +9,36 @@ public enum ShotType
 }
 public class WeaponController : MonoBehaviour
 {
+    public Weapon weapon;
+
     [Header("References")]
     public Transform weaponMuzzle;
     public Animator animator;
 
-    [Header("General")]
-    public LayerMask hittableLayers;
-    public GameObject bulletHolePrefab;
-
-    [Header("Shoot Paramaters")]
-    public ShotType shotType;
-    public float fireRange = 200;
-    public float recoilForce = 4f; //Fuerza de retroceso del arma
-    public float fireRate = 0.6f;
-    public int maxAmmo = 8;
-
-    [Header("Weapon Parameters")]
-    public float reloadTime = 1.5f;
-    public float drawTime = 0.5f;
-    public float hideTime = 0.5f;
-
     public int currentAmmo { get; private set; }
-
-    private float lastTimeShoot = Mathf.NegativeInfinity;
-
-    [Header("Sounds & Visuals")]
-    public GameObject flashEffect;
-
     public GameObject owner { set; get; }
 
+    private float lastTimeShoot = Mathf.NegativeInfinity;
     private Transform cameraPlayerTransform;
     private bool isReloading;
 
     private void Awake()
     {
-        currentAmmo = maxAmmo;
-        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo,maxAmmo);
+        cameraPlayerTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        currentAmmo = weapon.maxAmmo;
+        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, weapon.maxAmmo);
     }
 
-    private void Start()
+    public void SetAmmo(int newAmmo)
     {
-        cameraPlayerTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        currentAmmo = newAmmo;
+        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, weapon.maxAmmo);
     }
 
     private void OnEnable()
     {
         isReloading = true;
-        StartCoroutine(Draw(drawTime));
+        StartCoroutine(Draw(weapon.drawTime));
     }
 
 
@@ -63,14 +46,14 @@ public class WeaponController : MonoBehaviour
     {
         if(!isReloading)
         {
-            if (shotType == ShotType.Manual)
+            if (weapon.shotType == ShotType.Manual)
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
                     TryShoot();
                 }
             }
-            else if (shotType == ShotType.Automatic)
+            else if (weapon.shotType == ShotType.Automatic)
             {
                 if (Input.GetButton("Fire1"))
                 {
@@ -80,7 +63,7 @@ public class WeaponController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Reload());
         }
@@ -96,13 +79,13 @@ public class WeaponController : MonoBehaviour
 
     private bool TryShoot()
     {
-        if (lastTimeShoot + fireRate < Time.time)
+        if (lastTimeShoot + weapon.fireRate < Time.time)
         {
             if (currentAmmo >= 1)
             {
                 HandleShoot();
                 currentAmmo -= 1;
-                EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, maxAmmo);
+                EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, weapon.maxAmmo);
                 return true;
             }
         }
@@ -112,43 +95,57 @@ public class WeaponController : MonoBehaviour
 
     private void HandleShoot()
     {
-        GameObject flashClone = Instantiate(flashEffect, weaponMuzzle.position, Quaternion.Euler(weaponMuzzle.forward), transform);
+        // Create the flash effect
+        GameObject flashClone = Instantiate(weapon.flashEffectPrefab, weaponMuzzle.position, Quaternion.Euler(transform.forward.x, transform.forward.y, transform.forward.z), transform);
         Destroy(flashClone, 1f);
 
         AddRecoil();
 
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(cameraPlayerTransform.position, cameraPlayerTransform.forward, fireRange, hittableLayers);
-        foreach(RaycastHit hit in hits)
+        RaycastHit hit;
+        if (Physics.Raycast(cameraPlayerTransform.position, cameraPlayerTransform.forward, out hit, weapon.fireRange, weapon.hittableLayers) && hit.collider.gameObject != owner)
         {
-            if (hit.collider.gameObject != owner)
+            GameObject bulletHoleClone = Instantiate(weapon.bulletHolePrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal), hit.collider.gameObject.transform);
+            Destroy(bulletHoleClone, 4f);
+
+            // If Can be hitted
+            if (hit.collider.gameObject.GetComponent<Damageable>())
             {
-                GameObject bulletHoleClone = Instantiate(bulletHolePrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-                Destroy(bulletHoleClone, 4f);
+                hit.collider.gameObject.GetComponent<Damageable>().InflictDamage(weapon.damage, false, owner);
             }
         }
+
+        AddBulletTrial();
 
         lastTimeShoot = Time.time;
     }
 
     private void AddRecoil()
     {
-        transform.Rotate(-recoilForce, 0f, 0f);
-        transform.position = transform.position - transform.forward * (recoilForce/50f);
+        transform.Rotate(-weapon.recoilForce, 0f, 0f);
+        transform.position = transform.position - transform.forward * (weapon.recoilForce /50f);
+    }
+
+    private void AddBulletTrial()
+    {
+        if (weapon.bulletTrialPrefab == null) return;
+
+        //GameObject bulletTrialEffect = Instantiate
     }
 
     IEnumerator Reload()
     {
+        if (isReloading || currentAmmo == weapon.maxAmmo)
+            yield break;
+
         isReloading = true;
         if (animator)
         {
             animator.SetTrigger("Reloading");
         }
 
-        Debug.Log("Recargando...");
-        yield return new WaitForSeconds(reloadTime - 0.15f);
-        currentAmmo = maxAmmo;
-        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, maxAmmo);
+        yield return new WaitForSeconds(weapon.reloadTime - 0.15f);
+        currentAmmo = weapon.maxAmmo;
+        EventManager.current.UpdateBulletsEvent.Invoke(currentAmmo, weapon.maxAmmo);
         Debug.Log("Recargada");
         isReloading = false;
     }
